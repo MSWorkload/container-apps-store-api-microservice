@@ -16,7 +16,7 @@ param goPort int = 8050
 var goServiceAppName = 'go-app'
 
 param apimName string = 'store-api-mgmt-${uniqueString(resourceGroup().id)}'
-param deployApim bool = true
+param deployApim bool = false
 param isPrivateRegistry bool = true
 
 param containerRegistry string
@@ -47,14 +47,9 @@ module cosmosdb 'cosmosdb.bicep' = {
 }
 
 // API Management
-module apim 'api-management.bicep' = if (deployApim) {
-  name: '${deployment().name}--apim'
-  params: {
-    apimName: apimName
-    publisherName: 'Contoso Store'
-    publisherEmail: 'demo@example.com'
-    apimLocation: location
-  }
+module apim 'api-management.bicep' = existing = {
+  name: 'apim-pg-demo'
+}
 }
 
 
