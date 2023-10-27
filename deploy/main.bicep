@@ -50,7 +50,7 @@ module cosmosdb 'cosmosdb.bicep' = {
 module apim 'api-management.bicep' = existing = {
   name: 'apim-pg-demo'
 }
-}
+
 
 
 // Python App
