@@ -47,10 +47,19 @@ module cosmosdb 'cosmosdb.bicep' = {
 }
 
 // API Management
-module apim 'api-management.bicep' = existing = {
-  name: 'apim-pg-demo'
-}
+// module apim 'api-management.bicep' = existing = {
+//   name: 'apim-pg-demo'
+// }
 
+module apim 'api-management.bicep' = if (deployApim) {
+  name: '${deployment().name}--apim'
+  params: {
+    apimName: apimName
+    publisherName: 'Contoso Store'
+    publisherEmail: 'demo@example.com'
+    apimLocation: location
+  }
+}
 
 
 // Python App
